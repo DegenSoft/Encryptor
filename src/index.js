@@ -236,15 +236,21 @@ function is_odd(num) {
    return num % 2 !== 0;
 }
 
+function encodeString(input) {
+   // Проверяем, является ли строка шестнадцатеричным числом (чётная длина + только 0-9, a-f, A-F)
+   const isHex = /^[0-9a-fA-F]+$/.test(input) && input.length % 2 === 0;
+   
+   if (isHex) {
+      return CryptoJS.enc.Hex.parse(input);
+   } else {
+      return CryptoJS.enc.Utf8.parse(input);
+   }
+}
+
 function encryptPrivateKey(privateKey, password) {
    // Преобразование приватного ключа в байтовый массив
-   const padded = checkAndConvertToHex(privateKey);
-   let privateKeyBytes;
-   if (is_odd(padded.length)) {
-      privateKeyBytes = CryptoJS.enc.Utf8.parse(padded);
-   } else {
-      privateKeyBytes = CryptoJS.enc.Hex.parse(padded);
-   }
+   let privateKeyBytes = encodeString(privateKey);
+   
    // Процесс генерации ключа из пароля с использованием PBKDF2
    const key = CryptoJS.PBKDF2(password, CryptoJS.SHA256(password), { keySize: 256 / 32 });
    // Шифрование ключа с помощью AES
