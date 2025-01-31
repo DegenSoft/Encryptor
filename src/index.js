@@ -258,7 +258,7 @@ function encryptPrivateKey(privateKey, password) {
    // Возвращение зашифрованного приватного ключа в формате Base64
 
 
-   return (is_odd(padded.length) ? "UTF8" : "") + ciphertext.toString();
+   return ciphertext.toString();
 }
 
 function encryptAll() {
