@@ -7,6 +7,7 @@
   "icon": "public/img/white.png",
   "private": true,
   "main": "build/electron.js",
+  "repository": "https://github.com/DegenSoft/Soft_test_release",
   "dependencies": {
     "@material/web": "1.0.0",
     "@testing-library/jest-dom": "5.17.0",
@@ -28,7 +29,7 @@
     "electron:build": "npm run build:script && electron ./build/electron.js",
     "build:mac": "npm i && npm run build:script && electron-builder --mac",
     "build:win": "npm i && npm run build:script && electron-builder --win",
-    "build": "npm i && npm run build:script && export CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --mac --win"
+    "build": "npm i && npm run build:script && export CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder  build --win --mac --publish always"
   },
   "eslintConfig": {
     "extends": [

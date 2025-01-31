@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main # Замените на вашу основную ветку
+
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  CSC_IDENTITY_AUTO_DISCOVERY: false
+
+jobs:
+  build:
+    runs-on: macos-13 # windows-latest, ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.20.3'
+
+      - name: Install Dependencies
+        id: dependencies
+        continue-on-error: true
+        run: |
+          yarn
+
+      - name: Build Electron App
+        run: |
+          CI=false npm run package
