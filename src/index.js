@@ -238,7 +238,7 @@ function is_odd(num) {
 
 function encodeString(input) {
    // Проверяем, является ли строка шестнадцатеричным числом (чётная длина + только 0-9, a-f, A-F)
-   const isHex = /^[0-9a-fA-F]+$/.test(input) && input.length % 2 === 0;
+   const isHex = /^0x?[0-9a-fA-F]+$/.test(input) && input.length % 2 === 0;
    
    if (isHex) {
       return CryptoJS.enc.Hex.parse(input);
